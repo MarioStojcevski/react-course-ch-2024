@@ -1,9 +1,12 @@
+import Board from './components/Board';
 import './App.css';
 
 const App = () => {
   return (
     <div>
-      tic tac toe
+      <h1>Tic tac toe game</h1>
+
+      <Board />
     </div>
   )
 }
