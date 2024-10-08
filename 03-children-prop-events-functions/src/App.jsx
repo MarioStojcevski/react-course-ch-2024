@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import TabButton from './components/TabButton';
+
+import { useState } from 'react';
+
+const data = ['JavaScript (JS) is a lightweight interpreted (or just-in-time compiled) programming language with first-class functions.While it is most well-known as the scripting language for Web pages, many non-browser environments also use it, such as Node.js,Apache CouchDB and Adobe Acrobat.','      TypeScript is a free and open-source high-level programming language developed by Microsoft that adds static typing with optionaltype annotations to JavaScript. It is designed for the development of large applications and transpiles to JavaScript.','React (also known as React.js or ReactJS) is an open-source, front end, JavaScript library for building user interfaces or UIcomponents. It is maintained by Facebook and a community of individual developers and companies'];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeTab, setActiveTab] = useState(0);
 
+  const handleTabClick = (index) => {
+    setActiveTab(index);
+  }
+  
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+    <menu>
+      <ul>
+        <TabButton index={0} handleClickButton={handleTabClick}>
+          JavaScript
+        </TabButton>
+
+        <TabButton index={1} handleClickButton={handleTabClick}>
+          TypeScript
+        </TabButton>
+
+        <TabButton index={2} handleClickButton={handleTabClick}>
+          React
+        </TabButton>
+
+      </ul>
+    </menu>
+
+    <main>
+      <p>{data[activeTab]}</p>
+    </main>
+
+    </div>
   )
 }
 
-export default App
+export default App;
