@@ -30,21 +30,14 @@ const Board = () => {
 
   return (
     <>
-      {boardArray.map((_, index) => {
-        if(index % 3 === 0) {
-          return (
-            <div key={index}>
-              {[0, 1, 2].map((i) => (
-                <Field 
-                  key={i} 
-                  element={boardArray[index + i]}
-                  clickFieldHandler={fieldClick} 
-                  index={index + i} />
-            ))}
-            </div>
-          )
-        }        
-      })}
+      {boardArray.map((_, index) => (
+          <Field 
+            key={index} 
+            clickFieldHandler={fieldClick} 
+            index={index}
+            element={boardArray[index]} />
+        )
+      )}
     </>
   ); 
 };
