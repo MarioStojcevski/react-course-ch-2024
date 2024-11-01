@@ -46,6 +46,7 @@ const Board = () => {
 
   return (
     <>
+<<<<<<< HEAD
       <h2>{winner ? `Winner is ${winner}` : `Current Player is ${isCurrentPlayerX ? "X" : "O"}`}</h2>
       {boardArray.map((_, index) => {
         if(index % 3 === 0) {
@@ -79,6 +80,16 @@ const Board = () => {
           Step {index + 1}
         </button>
       ))}
+=======
+      {boardArray.map((_, index) => (
+          <Field 
+            key={index} 
+            clickFieldHandler={fieldClick} 
+            index={index}
+            element={boardArray[index]} />
+        )
+      )}
+>>>>>>> 84becc62c1ff07541b6abc10d046d0a0d0f4f55d
     </>
   ); 
 };

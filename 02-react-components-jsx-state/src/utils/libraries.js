@@ -1,4 +1,4 @@
-const libraries = {
+export const libraries = {
   react: {
     name: 'React',
     url: 'https://reactjs.org/',
@@ -20,5 +20,3 @@ const libraries = {
     description: 'Blazing fast server-rendered React',
   }
 };
-
-export default libraries;

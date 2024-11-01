@@ -1,11 +1,11 @@
 import Board from './components/Board';
 import './App.css';
+import Header from './components/Header';
 
 const App = () => {
   return (
     <div>
-      <h1>Tic tac toe game</h1>
-
+      <Header />
       <Board />
     </div>
   )
