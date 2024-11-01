@@ -15,9 +15,8 @@ const checkWinner = (board) => {
   winningCombinations.forEach((combination) => {
     const [firstIndex, secondIndex, thirdIndex] = combination;
     
-    if(board[firstIndex] === board[secondIndex] && 
-      board[firstIndex] === board[thirdIndex] && 
-      board[secondIndex] === board[thirdIndex]) {
+    // Ensure the fields are not null before checking equality
+    if (board[firstIndex] && board[firstIndex] === board[secondIndex] && board[firstIndex] === board[thirdIndex]) {
       winner = board[firstIndex];
     }
   });
