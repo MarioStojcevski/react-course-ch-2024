@@ -2,7 +2,17 @@ import { calculateInvestmentResults, formatter } from '../util/investment.js';
 
 
 export default function Results({ input }) {
-  const results = [];
+  const results = [{
+    year: 0,
+    interest: 0,
+    valueEndOfYear: input.initialInvestment,
+    annualInvestment: 0,
+  }];
+
+  if(input.duration < 0) {
+    return <p>Duration cannot be negative</p>;
+  }
+
   calculateInvestmentResults(input, results);
   const initialInvestment =
     results[0].valueEndOfYear -

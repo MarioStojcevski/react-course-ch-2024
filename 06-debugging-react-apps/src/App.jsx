@@ -12,11 +12,11 @@ function App() {
     duration: 10,
   });
 
-  function handleChange(inputIdentifier, newValue) {
+  function handleChange(key, newValue) {
     setUserInput((prevUserInput) => {
       return {
         ...prevUserInput,
-        [inputIdentifier]: newValue,
+        [key]: newValue,
       };
     });
   }
@@ -24,7 +24,11 @@ function App() {
   return (
     <>
       <Header />
-      <UserInput userInput={userInput} onChange={handleChange} />
+
+      <UserInput 
+        userInput={userInput} 
+        onChange={handleChange} />
+
       <Results input={userInput} />
     </>
   );

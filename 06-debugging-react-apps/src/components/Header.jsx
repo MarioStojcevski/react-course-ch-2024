@@ -1,6 +1,6 @@
 import logo from '../assets/investment-calculator-logo.png';
 
-export default function Header() {
+const Header = () => {
   return (
     <header id="header">
       <img src={logo} alt="Logo showing a money bag" />
@@ -8,3 +8,5 @@ export default function Header() {
     </header>
   );
 }
+
+export default Header;
