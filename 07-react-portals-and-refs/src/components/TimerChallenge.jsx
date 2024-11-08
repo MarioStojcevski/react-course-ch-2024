@@ -2,42 +2,49 @@ import { useRef, useState } from "react";
 import ResultModal from "./ResultModal";
 
 const TimerChallenge = ({ title, targetTime }) => {
-  const [timerStarted, setTimerStarted] = useState(false);
-  const [timerExpired, setTimerExpired] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(targetTime * 1000);
   const timer = useRef();
   const dialog = useRef();
 
-  const startTimer = () => {
-    timer.current = setTimeout(() => {
-      setTimerExpired(true);
-      dialog.current.open();
-    }, targetTime * 1000);
+  const timerIsActive = timeRemaining > 0 && timeRemaining < targetTime * 1000;
 
-    setTimerStarted(true);
+  if(timeRemaining <= 0) {
+    clearInterval(timer.current);
+    dialog.current.open();
+  }
+
+  const handleResetModal = () => {
+    setTimeRemaining(targetTime * 1000);
+  }
+
+  const startTimer = () => {
+    timer.current = setInterval(() => {
+      setTimeRemaining((time) => time - 10);
+    }, 10);
   }
 
   const handleStop =() => {
-    clearTimeout(timer.current);
+    clearInterval(timer.current);
+    dialog.current.open();
   }
 
   return (
     <>
-      <ResultModal ref={dialog} targetTime={targetTime} result="lost" />
+      <ResultModal ref={dialog} targetTime={targetTime} remainingTime={timeRemaining} onReset={handleResetModal} />
 
       <section className="challenge">
       <h2>{title}</h2>
-      {timerExpired && <p className="challenge-failed">Time's up!</p>}
       <p className="challenge-time">
         {targetTime} second{targetTime > 1 ? "s" : ""}
       </p>
       <p>
-        <button onClick={timerStarted ? handleStop : startTimer}>
-          {timerStarted ? "Stop" : "Start"}
+        <button onClick={timerIsActive ? handleStop : startTimer}>
+          {timerIsActive ? "Stop" : "Start"}
         </button>
       </p>
 
-      <p className={timerStarted ? 'active' : undefined}>
-        {timerStarted ? "Timer Running" : "Timer Not Started"}
+      <p className={timerIsActive ? 'active' : undefined}>
+        {timerIsActive ? "Timer Running" : "Timer Not Started"}
       </p>
     </section>
     </>
