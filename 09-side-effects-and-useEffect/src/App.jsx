@@ -1,15 +1,32 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Places from './components/Places.jsx';
 import { AVAILABLE_PLACES } from './data.js';
 import Modal from './components/Modal.jsx';
 import DeleteConfirmation from './components/DeleteConfirmation.jsx';
 import logoImg from './assets/logo.png';
+import { sortPlacesByDistance } from './loc.js';
 
 function App() {
   const modal = useRef();
   const selectedPlace = useRef();
   const [pickedPlaces, setPickedPlaces] = useState([]);
+  const [sortedPlaces, setSortedPlaces] = useState([]);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const result = await (await fetch('https://fake-json-api.mock.beeceptor.com/users')).json();
+      setUsers(result);
+    }
+
+    fetchUsers();
+
+    navigator.geolocation.getCurrentPosition((position) => {
+    const { latitude, longitude } = position.coords;
+    setSortedPlaces(sortPlacesByDistance(AVAILABLE_PLACES, latitude, longitude));
+    });
+  }, []);
 
   function handleStartRemovePlace(id) {
     modal.current.open();
@@ -63,10 +80,17 @@ function App() {
         />
         <Places
           title="Available Places"
-          places={AVAILABLE_PLACES}
+          places={sortedPlaces}
           onSelectPlace={handleSelectPlace}
         />
       </main>
+
+      {users.length > 0 && (users.map((user) => (
+        <div key={user.id}>
+          <h2>{user.name}</h2>
+          <p>{user.email}</p>
+        </div>
+      )))}
     </>
   );
 }
