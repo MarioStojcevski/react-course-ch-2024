@@ -1,19 +1,31 @@
-import { Link, Outlet } from "react-router-dom";
+import { Outlet, useLoaderData, Form, redirect, NavLink, useNavigation } from "react-router-dom";
 import { getContacts, createContact } from "../contacts";
 
-export default function Root() {
-  const contacts = getContacts();
+export const loader = async ({ request }) => {
+  const url = new URL(request.url);
+  const key = url.searchParams.get('q');
+  const contacts = await getContacts(key);
 
-  function createContactHandler() {
-    createContact();
-  }
+  return {
+    contacts,
+  };
+}
+
+export const action = async() => {
+  const contact = await createContact();
+  return redirect(`/contacts/${contact.id}/edit`);
+}
+
+const HomePage = () => {
+  const { contacts } = useLoaderData();
+  const { state } = useNavigation();
 
   return (
     <>
       <div id="sidebar">
         <h1>React Router Contacts</h1>
         <div>
-          <form id="search-form" role="search">
+          <Form id="search-form" role="search">
             <input
               id="q"
               aria-label="Search contacts"
@@ -30,15 +42,20 @@ export default function Root() {
               className="sr-only"
               aria-live="polite"
             ></div>
-          </form>
-          <button onClick={createContactHandler} type="submit">New</button>
+          </Form>
+          <Form method="post">
+            <button type="submit">New</button>
+          </Form>
         </div>
         <nav>
           {contacts.length ? (
               <ul>
                 {contacts.map((contact) => (
                   <li key={contact.id}>
-                    <Link to={`contacts/${contact.id}`}>
+                    <NavLink className={({ isActive, isPending}) => (
+                      isActive ? 'active' : isPending ? 'pending' : ''
+                    )}
+                    to={`contacts/${contact.id}`}>
                       {contact.first || contact.last ? (
                         <>
                           {contact.first} {contact.last}
@@ -47,7 +64,7 @@ export default function Root() {
                         <i>No Name</i>
                       )}{" "}
                       {contact.favorite && <span>★</span>}
-                    </Link>
+                    </NavLink>
                   </li>
                 ))}
               </ul>
@@ -58,9 +75,11 @@ export default function Root() {
           )}
         </nav>
       </div>
-      <div id="detail">
+      <div id="detail" className={state === 'loading' ? 'loading' : ''}>
         <Outlet />
       </div>
     </>
   );
-}
+};
+
+export default HomePage;

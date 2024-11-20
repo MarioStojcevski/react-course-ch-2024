@@ -1,25 +1,23 @@
-import { Form } from "react-router-dom";
+import { Form, useLoaderData } from "react-router-dom";
 import Favorite from "../components/favorite";
+import { getContact } from "../contacts";
+
+export const contactLoader = async ({ params }) => {
+  const contact = await getContact(params.id);
+
+  return { contact };
+}
 
 export default function Contact() {
-  const contact = {
-    first: "Your",
-    last: "Name",
-    avatar: "https://robohash.org/you.png?size=200x200",
-    twitter: "your_handle",
-    notes: "Some notes",
-    favorite: true,
-  };
+  const { contact } = useLoaderData();
 
   return (
     <div id="contact">
       <div>
         <img
           key={contact.avatar}
-          src={
-            contact.avatar ||
-            `https://robohash.org/${contact.id}.png?size=200x200`
-          }
+          src={contact.avatar}
+          alt={contact.id}
         />
       </div>
 
