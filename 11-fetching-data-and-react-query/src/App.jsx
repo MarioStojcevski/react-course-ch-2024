@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useFetch from "./hooks/useFetch";
+import { useMutation } from "@tanstack/react-query";
 
 function App() {
   const [selectedPersonId, setSelectedPersonId] = useState();
@@ -18,6 +19,23 @@ function App() {
   const onPersonClick = (id) => {
     setSelectedPersonId(id);
   }
+
+  const { mutate: createPerson } = useMutation({
+    mutationKey: 'addUser',
+    mutationFn: async (bodyData) => {
+      const response = await fetch('https://dummyjson.com/users/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bodyData)
+      });
+
+      if(!response.ok) {
+        throw new Error('Failed to add user');
+      }
+
+      return response.json();
+    },
+  })
 
   useEffect(() => {
     if(!clickedPersonData) return;
@@ -51,6 +69,7 @@ function App() {
               </li>
             </div>
           ))}
+          <button onClick={() => createPerson({ firstName: 'Mario', lastName: 'Stojcevski', age: 250})}>Create Mario</button>
       </div>
   )
 }
