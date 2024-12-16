@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 function useOnlineStatus() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     window.addEventListener('online', () => setIsOnline(true));
@@ -13,8 +14,10 @@ function useOnlineStatus() {
   }, []);
 
   return {
-    isOnline: isOnline,
-    setIsOnline: setIsOnline,
+    isOnline,
+    setIsOnline,
+    counter,
+    setCounter
   };
 };
 

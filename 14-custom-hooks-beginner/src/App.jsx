@@ -1,12 +1,13 @@
-import useOnlineStatus from './hooks/onlineStatus';
+import Comp1 from "./components/Comp1";
+import Comp2 from "./components/Comp2";
 
 function App() {
-  const { isOnline, setIsOnline } = useOnlineStatus();
 
   return (
     <>
-      <button onClick={() => setIsOnline((prevState) => !prevState)}>{isOnline ? 'Go offline' : 'Go online'}</button>
-      <h1>{isOnline ? '✅ Online' : '❌ Offline'}</h1>
+      <Comp1 />
+
+      <Comp2 />
     </>
   )
 }
