@@ -1,12 +1,1 @@
-{
-  "events": [
-    {
-      "title": "A new event",
-      "image": "https://cdn.muenchen-p.de/fl_progressive,q_65/.imaging/stk/responsive/teaser300/dms/va-2016/muenchner-christkindlmarkt/christkindlmarkt-marienplat-logo-hp/document/christkindlmarkt-marienplat-logo-hp.jpg",
-      "date": "2022-10-01",
-      "description": "Some awesome event!",
-      "id": "2a42fcc4-ea21-4bdd-abf6-c40006dc66a9"
-    }
-  ],
-  "users": []
-}
+{"events":[{"title":"bawdadw","image":"https://github.com/tannerlinsley/react-query/raw/main/media/repo-dark.png","date":"2025-01-02","description":"React Course","id":"7e1736c4-6a8d-4db9-b8e1-5b8335461ff9"},{"title":"A new event","image":"https://cdn.muenchen-p.de/fl_progressive,q_65/.imaging/stk/responsive/teaser300/dms/va-2016/muenchner-christkindlmarkt/christkindlmarkt-marienplat-logo-hp/document/christkindlmarkt-marienplat-logo-hp.jpg","date":"2022-10-01","description":"Some awesome event!","id":"2a42fcc4-ea21-4bdd-abf6-c40006dc66a9"}],"users":[{"email":"mario@test.com","password":"$2a$12$IYQMT2ykHRXej5sdiBylUO7bvVGNdV6.rUpI5guJHdDKfqfUNQ8RW","id":"46c5768e-0a0a-47f5-9a6e-d79d5bd0a037"}]}

@@ -66,3 +66,7 @@ router.post('/login', async (req, res) => {
 });
 
 module.exports = router;
+
+// http://localhost:8080/singup
+
+// http://localhost:8080/login
